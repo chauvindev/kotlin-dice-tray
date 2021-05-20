@@ -60,4 +60,27 @@ class DieTest {
 
         assertFailsWith<IllegalArgumentException> { die.rollMultiple(1) }
     }
+
+    @Test
+    fun test_shortcut_dice_bounds() {
+        val dice  = listOf(
+            Die.d4(),
+            Die.d6(),
+            Die.d8(),
+            Die.d10(),
+            Die.d12(),
+            Die.d20(),
+            Die.d100()
+        )
+
+        val lowerBounds = dice.map { it.lowerBound }
+        val upperBounds = dice.map { it.upperBound }
+
+        val bounds = lowerBounds + upperBounds
+
+        assertEquals(
+            listOf(1, 1, 1, 1, 1, 1, 1, 4, 6, 8, 10, 12, 20, 100),
+            bounds
+        )
+    }
 }
