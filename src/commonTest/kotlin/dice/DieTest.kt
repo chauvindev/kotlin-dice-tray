@@ -53,4 +53,11 @@ class DieTest {
 
         assertEquals(numberOfRolls, die.rollMultiple(numberOfRolls).size)
     }
+
+    @Test
+    fun roll_multiple_does_not_work_with_less_than_two_rolls() {
+        val die = Die(1, 6)
+
+        assertFailsWith<IllegalArgumentException> { die.rollMultiple(1) }
+    }
 }
