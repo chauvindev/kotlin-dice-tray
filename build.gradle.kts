@@ -1,9 +1,10 @@
 plugins {
     kotlin("multiplatform") version "1.5.0"
+    id("org.jetbrains.dokka") version "1.4.32"
 }
 
 group = "dev.chauvin"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
