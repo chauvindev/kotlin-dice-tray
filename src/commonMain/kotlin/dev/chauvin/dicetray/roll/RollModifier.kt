@@ -1,4 +1,4 @@
-package roll
+package dev.chauvin.dicetray.roll
 
 /**
  * A RollModifier is a combination of an integer [value] that is to be applied to a die roll,

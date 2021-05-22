@@ -1,6 +1,6 @@
-package dice
+package dev.chauvin.dicetray.dice
 
-import roll.RollModifier
+import dev.chauvin.dicetray.roll.RollModifier
 
 /**
  * Die is an implementation of DieInterface.

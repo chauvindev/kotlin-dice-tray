@@ -1,16 +1,15 @@
-package dice
+package dev.chauvin.dicetray.dice
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.asFlow
 import kotlinx.coroutines.flow.flowOf
-import roll.RollModifier
-import roll.RollResult
+import dev.chauvin.dicetray.roll.RollModifier
+import dev.chauvin.dicetray.roll.RollResult
 
 /**
  * DieInterface defines the basic properties and functionality needed to create a rollable die. Each
  * die has a [lowerBound] (i.e., the lowest number that can be rolled), an [upperBound] (i.e., the highest
- * number that can be rolled), and a list of applicable [modifiers]. This interface provides both
- * synchronous and suspendable methods for rolling the die.
+ * number that can be rolled), and a list of applicable [modifiers].
  */
 interface DieInterface {
     val lowerBound: Int
@@ -28,15 +27,6 @@ interface DieInterface {
     }
 
     /**
-     * Roll the die and return the result.
-     *
-     * @return RollResult
-     */
-    suspend fun suspendableRoll(): Flow<RollResult> {
-        return flowOf(roll())
-    }
-
-    /**
      * Roll the die a number of times corresponding to [numberOfRolls] and return the results.
      *
      * @return List<RollResult>
@@ -47,25 +37,6 @@ interface DieInterface {
            return (1..numberOfRolls).map {
                 roll()
             }
-        }
-
-        else {
-            throw (IllegalArgumentException("Must request at least two rolls."))
-        }
-    }
-
-    /**
-     * Roll the die a number of times corresponding to [numberOfRolls] and return the results.
-     *
-     * @return Flow<RollResult>
-     * @throws IllegalArgumentException
-     */
-    suspend fun suspendableRollMultiple(numberOfRolls: Int): Flow<RollResult> {
-        if (numberOfRolls >= 2) {
-            return (1..numberOfRolls).map {
-                val roll = (lowerBound..upperBound).random()
-                RollResult(roll, modifiers, roll + modifiers.sumOf { it.value })
-            }.asFlow()
         }
 
         else {

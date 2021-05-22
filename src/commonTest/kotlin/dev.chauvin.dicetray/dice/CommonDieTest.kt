@@ -1,7 +1,7 @@
-package dice
+package dev.chauvin.dicetray.dice
 
-import roll.RollModifier
-import roll.RollResult
+import dev.chauvin.dicetray.roll.RollModifier
+import dev.chauvin.dicetray.roll.RollResult
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
