@@ -1,7 +1,3 @@
-import org.gradle.api.publish.maven.MavenPublication
-import org.gradle.api.tasks.bundling.Jar
-import org.gradle.kotlin.dsl.`maven-publish`
-import org.gradle.kotlin.dsl.signing
 import java.util.*
 
 plugins {
@@ -103,57 +99,6 @@ publishing {
 signing {
     sign(publishing.publications)
 }
-
-/*val dokkaHtml by tasks.getting(org.jetbrains.dokka.gradle.DokkaTask::class)
-
-val javadocJar: TaskProvider<Jar> by tasks.registering(Jar::class) {
-    dependsOn(dokkaHtml)
-    archiveClassifier.set("javadoc")
-    from(dokkaHtml.outputDirectory)
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            pom {
-                name.set("Kotlin Dice Tray")
-                description.set("A Kotlin dice rolling library")
-                url.set("https://github.com/chauvindev/kotlin-dice-tray")
-                licenses {
-                    license {
-                        name.set("MIT License")
-                        url.set("https://opensource.org/licenses/MIT")
-                    }
-                }
-                developers {
-                    developer {
-                        id.set("chauvindev")
-                        name.set("Alex Chauvin")
-                        email.set("alex@chauvin.dev")
-                    }
-                }
-                scm {
-                    connection.set("scm:git:git://example.com/my-library.git")
-                    developerConnection.set("scm:git:ssh:github.com/chauvindev/kotlin-dice-tray.git")
-                    url.set("https://github.com/chauvindev/kotlin-dice-tray")
-                }
-            }
-        }
-    }
-}
-
-signing {
-    sign(publishing.publications["mavenJava"])
-}
-
-nexusPublishing {
-    repositories {
-        sonatype {  //only for users registered in Sonatype after 24 Feb 2021
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-        }
-    }
-}*/
 
 kotlin {
     jvm {
