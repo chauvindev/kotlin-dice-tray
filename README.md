@@ -13,14 +13,14 @@ Kotlin Dice Tray is on MavenCentral and can be added to your project as follows:
 <dependency>
     <groupId>dev.chauvin</groupId>
     <artifactId>kotlin-dice-tray</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
 ### Gradle
 ```
 dependencies {
-    implementation 'dev.chauvin:kotlin-dice-tray:1.0.0'
+    implementation 'dev.chauvin:kotlin-dice-tray:1.0.1'
 }
 ```
 Make sure you have <code>mavenCentral()</code> in the list of repositories
@@ -33,7 +33,7 @@ repository {
 ### Gradle Kotlin DSL
 ```
 dependencies {
-    implementation("dev.chauvin:kotlin-dice-tray:1.0.0")
+    implementation("dev.chauvin:kotlin-dice-tray:1.0.1")
 }
 ```
 
@@ -48,7 +48,7 @@ repository {
 ```
 commonMain {
     dependencies {
-        implementation("dev.chauvin:kotlin-dice-tray:1.0.0")
+        implementation("dev.chauvin:kotlin-dice-tray:1.0.1")
     }
 }
 ```
