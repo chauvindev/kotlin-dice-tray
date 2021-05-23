@@ -8,9 +8,7 @@ import dev.chauvin.dicetray.roll.NumericRollResult
  * (i.e., the lowest number that can be rolled), an [upperBound] (i.e., the highest
  * number that can be rolled), and a list of applicable [modifiers].
  */
-abstract class NumericDie <T: Number>(
-
-) : Die<T> {
+abstract class NumericDie <T: Number>: Die<T> {
 
     abstract val lowerBound: T
     abstract val upperBound: T

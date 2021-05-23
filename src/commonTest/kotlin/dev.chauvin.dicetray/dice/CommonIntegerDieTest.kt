@@ -2,6 +2,7 @@ package dev.chauvin.dicetray.dice
 
 import dev.chauvin.dicetray.roll.NumericRollModifier
 import dev.chauvin.dicetray.roll.NumericRollResult
+import dev.chauvin.dicetray.roll.RollModifier
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -86,5 +87,4 @@ class CommonIntegerDieTest {
 
         assertFailsWith<IllegalArgumentException> { die.rollMultiple(1) }
     }
-
 }

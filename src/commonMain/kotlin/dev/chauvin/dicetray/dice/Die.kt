@@ -11,7 +11,7 @@ interface Die <T: Any> {
      *
      * @return RollResult
      */
-    fun roll(): RollResult<T>
+    fun roll (): RollResult<T>
 
     /**
      * Roll the die a number of times corresponding to [numberOfRolls] and return the results.
