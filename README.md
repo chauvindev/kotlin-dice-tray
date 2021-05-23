@@ -2,8 +2,7 @@
 <img src="https://img.shields.io/maven-central/v/dev.chauvin/kotlin-dice-tray">
 
 Kotlin Dice Tray is a small Multiplatform library which allows you to create and roll dice. It is meant to be simple to use yet flexible. For this reason,
-it provides shortcuts to many standard dice (e.g., d20, d6), while also giving the user the ability to create their own dice. Kotlin Dice Tray also
-provides both synchronous die rolls and coroutine support.
+it provides shortcuts to many standard dice (e.g., d20, d6), while also giving the user the ability to create their own dice.
 
 ## Installation
 Kotlin Dice Tray is on MavenCentral and can be added to your project as follows:
@@ -13,14 +12,14 @@ Kotlin Dice Tray is on MavenCentral and can be added to your project as follows:
 <dependency>
     <groupId>dev.chauvin</groupId>
     <artifactId>kotlin-dice-tray</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
 </dependency>
 ```
 
 ### Gradle
 ```
 dependencies {
-    implementation 'dev.chauvin:kotlin-dice-tray:1.0.1'
+    implementation 'dev.chauvin:kotlin-dice-tray:1.0.2'
 }
 ```
 Make sure you have <code>mavenCentral()</code> in the list of repositories
@@ -33,7 +32,7 @@ repository {
 ### Gradle Kotlin DSL
 ```
 dependencies {
-    implementation("dev.chauvin:kotlin-dice-tray:1.0.1")
+    implementation("dev.chauvin:kotlin-dice-tray:1.0.2")
 }
 ```
 
@@ -48,7 +47,7 @@ repository {
 ```
 commonMain {
     dependencies {
-        implementation("dev.chauvin:kotlin-dice-tray:1.0.1")
+        implementation("dev.chauvin:kotlin-dice-tray:1.0.2")
     }
 }
 ```
@@ -103,17 +102,15 @@ val die = Die.d20()
 val result = die.roll()
 ```
 
-This returns a <code>RollResult</code> object which contains the initial <code>value</code> of the roll before modifiers, the full list of
-<code>modifiers</code> that were applied, and the <code>modifiedValue</code> of the roll. For die without modifiers, <code>value</code>
-and <code>modifiedValue</code> will be the same.
+This returns a <code>RollResult</code> object which contains <code>value</code> of
+the roll after all <code>modifiers</code> have been applied. The original, 
+<code>rawValue</code> of the roll without modifiers is also available.
 
 If you need multiple rolls, you can use the <code>rollMultiple(numberOfRolls)</code> function:
 ``` kotlin
 val die = Die.d20()
 val results = die.rollMultiple(5) // rolls the die 5 times and returns a list of RollResult objects.
 ```
-Note that <code>roll()</code> and <code>rollMultiple()</code> are synchronous. Suspendable versions are also available as <code>suspendableRoll()</code> and
-<code>suspendableRollMultiple()</code>. These functions both return a Flow of RollResult objects.
 
 ## What's Next?
 This is a very simple library and is meant to remain so. However, that does not mean there is no room for growth. One of the planned features is
