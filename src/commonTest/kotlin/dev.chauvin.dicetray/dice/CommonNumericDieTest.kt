@@ -7,17 +7,17 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertIs
 
-class CommonDieTest {
+class CommonNumericDieTest {
     @Test
     fun test_shortcut_dice_bounds() {
         val dice  = listOf(
-            Die.d4(),
-            Die.d6(),
-            Die.d8(),
-            Die.d10(),
-            Die.d12(),
-            Die.d20(),
-            Die.d100()
+            NumericDie.d4(),
+            NumericDie.d6(),
+            NumericDie.d8(),
+            NumericDie.d10(),
+            NumericDie.d12(),
+            NumericDie.d20(),
+            NumericDie.d100()
         )
 
         val lowerBounds = dice.map { it.lowerBound }
@@ -41,13 +41,13 @@ class CommonDieTest {
         val upperBound = 2
 
         assertFailsWith<IllegalArgumentException> {
-            Die(lowerBound, upperBound)
+            NumericDie(lowerBound, upperBound)
         }
     }
 
     @Test
     fun roll_function_returns_roll_result_object() {
-        val die = Die(1, 6)
+        val die = NumericDie(1, 6)
 
         assertIs<RollResult>(die.roll())
     }
@@ -59,7 +59,7 @@ class CommonDieTest {
             RollModifier(4),
             RollModifier(5)
         )
-        val die = Die(1, 6, modifiers)
+        val die = NumericDie(1, 6, modifiers)
         val roll = die.roll()
 
         assertEquals(roll.value, roll.rawValue + roll.modifiers.sumOf {it.value})
@@ -67,14 +67,14 @@ class CommonDieTest {
 
     @Test
     fun roll_multiple_returns_a_list_of_roll_result_objects() {
-        val die = Die(1, 6)
+        val die = NumericDie(1, 6)
 
         assertIs<List<RollResult>>(die.rollMultiple(4))
     }
 
     @Test
     fun roll_multiple_returns_a_number_of_results_equal_to_number_of_rolls_parameter() {
-        val die = Die(1, 6)
+        val die = NumericDie(1, 6)
         val numberOfRolls = (1..10000).random()
 
         assertEquals(numberOfRolls, die.rollMultiple(numberOfRolls).size)
@@ -82,7 +82,7 @@ class CommonDieTest {
 
     @Test
     fun roll_multiple_does_not_work_with_less_than_two_rolls() {
-        val die = Die(1, 6)
+        val die = NumericDie(1, 6)
 
         assertFailsWith<IllegalArgumentException> { die.rollMultiple(1) }
     }

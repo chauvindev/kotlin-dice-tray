@@ -1,35 +1,23 @@
 package dev.chauvin.dicetray.dice
 
-import dev.chauvin.dicetray.roll.RollModifier
+import dev.chauvin.dicetray.roll.RollResult
 
 /**
- * Die is an implementation of DieInterface.
+ * Die defines the basic properties and functionality needed to create a rollable die.
  */
-class Die(
-    override val lowerBound: Int,
-    override val upperBound: Int,
-    override val modifiers: List<RollModifier> = emptyList()
-) : DieInterface {
-
-    init {
-        if (lowerBound > upperBound) {
-            throw (IllegalArgumentException(
-                "The value of lowerBound must be smaller than the value of upperBound." +
-                        " lowerBound: $lowerBound, upperBound: $upperBound"
-            ))
-        }
-    }
+interface Die {
+    /**
+     * Roll the die and return the result.
+     *
+     * @return RollResult
+     */
+    fun roll(): RollResult
 
     /**
-     * Provide shortcuts for most common die types.
+     * Roll the die a number of times corresponding to [numberOfRolls] and return the results.
+     *
+     * @return List<RollResult>
+     * @throws IllegalArgumentException
      */
-    companion object {
-        fun d4(modifiers: List<RollModifier> = emptyList()) = Die(1, 4, modifiers)
-        fun d6(modifiers: List<RollModifier> = emptyList()) = Die(1, 6, modifiers)
-        fun d8(modifiers: List<RollModifier> = emptyList()) = Die(1, 8, modifiers)
-        fun d10(modifiers: List<RollModifier> = emptyList()) = Die(1, 10, modifiers)
-        fun d12(modifiers: List<RollModifier> = emptyList()) = Die(1, 12, modifiers)
-        fun d20(modifiers: List<RollModifier> = emptyList()) = Die(1, 20, modifiers)
-        fun d100(modifiers: List<RollModifier> = emptyList()) = Die(1, 100, modifiers)
-    }
+    fun rollMultiple(numberOfRolls: Int): List<RollResult>
 }
