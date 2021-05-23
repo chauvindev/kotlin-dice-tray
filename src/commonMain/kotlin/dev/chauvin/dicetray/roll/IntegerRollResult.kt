@@ -5,7 +5,7 @@ package dev.chauvin.dicetray.roll
  * after all [modifiers] are applied. The initial [rawValue] of the roll before any modifiers is
  * also available.
  */
-data class NumericRollResult(
+data class IntegerRollResult(
     override val value: Int,
     val modifiers: List<IntegerRollModifier>,
     val rawValue: Int
