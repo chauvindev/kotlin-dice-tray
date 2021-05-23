@@ -1,6 +1,6 @@
 package dev.chauvin.dicetray.dice
 
-import dev.chauvin.dicetray.roll.RollModifier
+import dev.chauvin.dicetray.roll.NumericRollModifier
 import dev.chauvin.dicetray.roll.NumericRollResult
 
 /**
@@ -11,7 +11,7 @@ import dev.chauvin.dicetray.roll.NumericRollResult
 class NumericDie(
     val lowerBound: Int,
     val upperBound: Int,
-    val modifiers: List<RollModifier> = emptyList()
+    val modifiers: List<NumericRollModifier> = emptyList()
 ) : Die {
 
     init {
@@ -55,13 +55,13 @@ class NumericDie(
      * Provide shortcuts for most common die types.
      */
     companion object {
-        fun d4(modifiers: List<RollModifier> = emptyList()) = NumericDie(1, 4, modifiers)
-        fun d6(modifiers: List<RollModifier> = emptyList()) = NumericDie(1, 6, modifiers)
-        fun d8(modifiers: List<RollModifier> = emptyList()) = NumericDie(1, 8, modifiers)
-        fun d10(modifiers: List<RollModifier> = emptyList()) = NumericDie(1, 10, modifiers)
-        fun d12(modifiers: List<RollModifier> = emptyList()) = NumericDie(1, 12, modifiers)
-        fun d20(modifiers: List<RollModifier> = emptyList()) = NumericDie(1, 20, modifiers)
-        fun d100(modifiers: List<RollModifier> = emptyList()) = NumericDie(1, 100, modifiers)
+        fun d4(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie(1, 4, modifiers)
+        fun d6(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie(1, 6, modifiers)
+        fun d8(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie(1, 8, modifiers)
+        fun d10(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie(1, 10, modifiers)
+        fun d12(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie(1, 12, modifiers)
+        fun d20(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie(1, 20, modifiers)
+        fun d100(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie(1, 100, modifiers)
     }
 
 

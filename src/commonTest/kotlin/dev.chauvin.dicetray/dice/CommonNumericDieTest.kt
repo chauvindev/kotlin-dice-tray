@@ -1,6 +1,6 @@
 package dev.chauvin.dicetray.dice
 
-import dev.chauvin.dicetray.roll.RollModifier
+import dev.chauvin.dicetray.roll.NumericRollModifier
 import dev.chauvin.dicetray.roll.NumericRollResult
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -55,9 +55,9 @@ class CommonNumericDieTest {
     @Test
     fun roll_result_is_sum_of_roll_and_modifiers() {
         val modifiers = listOf(
-            RollModifier(-3),
-            RollModifier(4),
-            RollModifier(5)
+            NumericRollModifier(-3),
+            NumericRollModifier(4),
+            NumericRollModifier(5)
         )
         val die = NumericDie(1, 6, modifiers)
         val roll = die.roll()

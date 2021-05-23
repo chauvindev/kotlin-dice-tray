@@ -1,10 +1,10 @@
 package dev.chauvin.dicetray.roll
 
 /**
- * A RollModifier is a combination of an integer [value] that is to be applied to a die roll,
+ * A NumericRollModifier is a combination of an integer [value] that is to be applied to a die roll,
  * along with an optional [reason] for this modifier.
  */
-data class RollModifier(
+data class NumericRollModifier(
     val value: Int,
     val reason: String? = null
 )
