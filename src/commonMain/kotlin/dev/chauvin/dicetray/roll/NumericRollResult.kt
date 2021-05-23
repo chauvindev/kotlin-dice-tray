@@ -6,7 +6,7 @@ package dev.chauvin.dicetray.roll
  * also available.
  */
 data class NumericRollResult(
-    val value: Int,
+    override val value: Int,
     val modifiers: List<NumericRollModifier>,
     val rawValue: Int
-)
+): RollResult<Int>

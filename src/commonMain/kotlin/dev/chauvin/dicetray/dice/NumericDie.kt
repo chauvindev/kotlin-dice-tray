@@ -8,11 +8,11 @@ import dev.chauvin.dicetray.roll.NumericRollResult
  * (i.e., the lowest number that can be rolled), an [upperBound] (i.e., the highest
  * number that can be rolled), and a list of applicable [modifiers].
  */
-class NumericDie(
+class NumericDie (
     val lowerBound: Int,
     val upperBound: Int,
     val modifiers: List<NumericRollModifier> = emptyList()
-) : Die {
+) : Die<Int> {
 
     init {
         if (lowerBound > upperBound) {
@@ -26,7 +26,7 @@ class NumericDie(
     /**
      * Roll the die and return the result.
      *
-     * @return RollResult
+     * @return NumericRollResult
      */
     override fun roll(): NumericRollResult {
         val roll = (lowerBound..upperBound).random()
@@ -36,7 +36,7 @@ class NumericDie(
     /**
      * Roll the die a number of times corresponding to [numberOfRolls] and return the results.
      *
-     * @return List<RollResult>
+     * @return List<NumericRollResult>
      * @throws IllegalArgumentException
      */
     override fun rollMultiple(numberOfRolls: Int): List<NumericRollResult> {
