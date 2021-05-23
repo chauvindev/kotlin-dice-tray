@@ -1,4 +1,6 @@
-package dev.chauvin.dicetray.roll
+package dev.chauvin.dicetray.roll.numeric
+
+import dev.chauvin.dicetray.roll.RollResult
 
 /**
  * A NumericRollResult object represents the final outcome of a numeric die roll, and holds the [value] of the roll

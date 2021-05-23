@@ -1,7 +1,7 @@
-package dev.chauvin.dicetray.dice
+package dev.chauvin.dicetray.dice.numeric
 
-import dev.chauvin.dicetray.roll.NumericRollModifier
-import dev.chauvin.dicetray.roll.NumericRollResult
+import dev.chauvin.dicetray.roll.numeric.NumericRollModifier
+import dev.chauvin.dicetray.roll.numeric.NumericRollResult
 
 /**
  * The IntegerDie class is a concrete implementation of the [NumericDie] abstract class used

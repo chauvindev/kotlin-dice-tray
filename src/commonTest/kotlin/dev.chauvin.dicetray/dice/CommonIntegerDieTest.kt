@@ -1,8 +1,8 @@
 package dev.chauvin.dicetray.dice
 
-import dev.chauvin.dicetray.roll.NumericRollModifier
-import dev.chauvin.dicetray.roll.NumericRollResult
-import dev.chauvin.dicetray.roll.RollModifier
+import dev.chauvin.dicetray.dice.numeric.IntegerDie
+import dev.chauvin.dicetray.roll.numeric.NumericRollModifier
+import dev.chauvin.dicetray.roll.numeric.NumericRollResult
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith

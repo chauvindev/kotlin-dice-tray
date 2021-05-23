@@ -1,7 +1,8 @@
-package dev.chauvin.dicetray.dice
+package dev.chauvin.dicetray.dice.numeric
 
-import dev.chauvin.dicetray.roll.NumericRollModifier
-import dev.chauvin.dicetray.roll.NumericRollResult
+import dev.chauvin.dicetray.dice.Die
+import dev.chauvin.dicetray.roll.numeric.NumericRollModifier
+import dev.chauvin.dicetray.roll.numeric.NumericRollResult
 
 /**
  * NumericDie is an abstract implementation of the Die interface. Each numeric die has a [lowerBound]
