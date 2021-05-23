@@ -1,6 +1,5 @@
-package dev.chauvin.dicetray.dice
+package dev.chauvin.dicetray.dice.numeric
 
-import dev.chauvin.dicetray.dice.numeric.IntegerDie
 import dev.chauvin.dicetray.roll.numeric.NumericRollModifier
 import dev.chauvin.dicetray.roll.numeric.NumericRollResult
 import kotlin.test.Test
