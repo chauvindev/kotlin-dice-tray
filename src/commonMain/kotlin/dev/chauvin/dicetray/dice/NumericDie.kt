@@ -1,7 +1,7 @@
 package dev.chauvin.dicetray.dice
 
 import dev.chauvin.dicetray.roll.RollModifier
-import dev.chauvin.dicetray.roll.RollResult
+import dev.chauvin.dicetray.roll.NumericRollResult
 
 /**
  * NumericDie is an implementation of the Die interface. Each numeric die has a [lowerBound]
@@ -28,9 +28,9 @@ class NumericDie(
      *
      * @return RollResult
      */
-    override fun roll(): RollResult {
+    override fun roll(): NumericRollResult {
         val roll = (lowerBound..upperBound).random()
-        return RollResult(roll + modifiers.sumOf { it.value }, modifiers, roll)
+        return NumericRollResult(roll + modifiers.sumOf { it.value }, modifiers, roll)
     }
 
     /**
@@ -39,7 +39,7 @@ class NumericDie(
      * @return List<RollResult>
      * @throws IllegalArgumentException
      */
-    override fun rollMultiple(numberOfRolls: Int): List<RollResult> {
+    override fun rollMultiple(numberOfRolls: Int): List<NumericRollResult> {
         if (numberOfRolls >= 2) {
             return (1..numberOfRolls).map {
                 roll()

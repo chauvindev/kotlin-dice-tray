@@ -1,6 +1,6 @@
 package dev.chauvin.dicetray.dice
 
-import dev.chauvin.dicetray.roll.RollResult
+import dev.chauvin.dicetray.roll.NumericRollResult
 
 /**
  * Die defines the basic properties and functionality needed to create a rollable die.
@@ -11,7 +11,7 @@ interface Die {
      *
      * @return RollResult
      */
-    fun roll(): RollResult
+    fun roll(): NumericRollResult
 
     /**
      * Roll the die a number of times corresponding to [numberOfRolls] and return the results.
@@ -19,5 +19,5 @@ interface Die {
      * @return List<RollResult>
      * @throws IllegalArgumentException
      */
-    fun rollMultiple(numberOfRolls: Int): List<RollResult>
+    fun rollMultiple(numberOfRolls: Int): List<NumericRollResult>
 }
