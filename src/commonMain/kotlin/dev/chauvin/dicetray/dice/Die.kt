@@ -3,9 +3,13 @@ package dev.chauvin.dicetray.dice
 import dev.chauvin.dicetray.roll.RollResult
 
 /**
- * Die defines the basic properties and functionality needed to create a rollable die.
+ * Die defines the basic properties and functionality needed to create a rollable die with
+ * a number of [faces].
  */
 interface Die <T: Any> {
+
+    val faces: Set<T>
+
     /**
      * Roll the die and return the result.
      *
