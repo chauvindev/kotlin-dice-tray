@@ -62,7 +62,7 @@ class CommonDieTest {
         val die = Die(1, 6, modifiers)
         val roll = die.roll()
 
-        assertEquals(roll.modifiedValue, roll.value + roll.modifiers.sumOf {it.value})
+        assertEquals(roll.value, roll.rawValue + roll.modifiers.sumOf {it.value})
     }
 
     @Test

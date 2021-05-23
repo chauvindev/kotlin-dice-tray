@@ -1,8 +1,5 @@
 package dev.chauvin.dicetray.dice
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.asFlow
-import kotlinx.coroutines.flow.flowOf
 import dev.chauvin.dicetray.roll.RollModifier
 import dev.chauvin.dicetray.roll.RollResult
 
@@ -23,7 +20,7 @@ interface DieInterface {
      */
     fun roll(): RollResult {
         val roll = (lowerBound..upperBound).random()
-        return RollResult(roll, modifiers, roll + modifiers.sumOf { it.value })
+        return RollResult(roll + modifiers.sumOf { it.value }, modifiers, roll)
     }
 
     /**
