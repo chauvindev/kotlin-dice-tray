@@ -5,6 +5,6 @@ package dev.chauvin.dicetray.roll
  * along with an optional [reason] for this modifier.
  */
 data class NumericRollModifier(
-    val value: Int,
-    val reason: String? = null
-)
+    override val value: Int,
+    override val reason: String? = null
+): RollModifier<Int>
