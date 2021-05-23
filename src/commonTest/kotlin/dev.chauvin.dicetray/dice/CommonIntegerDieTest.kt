@@ -1,7 +1,7 @@
 package dev.chauvin.dicetray.dice
 
-import dev.chauvin.dicetray.roll.IntegerRollModifier
-import dev.chauvin.dicetray.roll.IntegerRollResult
+import dev.chauvin.dicetray.roll.NumericRollModifier
+import dev.chauvin.dicetray.roll.NumericRollResult
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -49,15 +49,15 @@ class CommonIntegerDieTest {
     fun roll_function_returns_roll_result_object() {
         val die = IntegerDie(1, 6)
 
-        assertIs<IntegerRollResult>(die.roll())
+        assertIs<NumericRollResult<Int>>(die.roll())
     }
 
     @Test
     fun roll_result_is_sum_of_roll_and_modifiers() {
         val modifiers = listOf(
-            IntegerRollModifier(-3),
-            IntegerRollModifier(4),
-            IntegerRollModifier(5)
+            NumericRollModifier(-3),
+            NumericRollModifier(4),
+            NumericRollModifier(5)
         )
         val die = IntegerDie(1, 6, modifiers)
         val roll = die.roll()
@@ -69,7 +69,7 @@ class CommonIntegerDieTest {
     fun roll_multiple_returns_a_list_of_roll_result_objects() {
         val die = IntegerDie(1, 6)
 
-        assertIs<List<IntegerRollResult>>(die.rollMultiple(4))
+        assertIs<List<NumericRollResult<Int>>>(die.rollMultiple(4))
     }
 
     @Test

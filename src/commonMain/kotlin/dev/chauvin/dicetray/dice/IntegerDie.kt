@@ -1,7 +1,7 @@
 package dev.chauvin.dicetray.dice
 
-import dev.chauvin.dicetray.roll.IntegerRollModifier
-import dev.chauvin.dicetray.roll.IntegerRollResult
+import dev.chauvin.dicetray.roll.NumericRollModifier
+import dev.chauvin.dicetray.roll.NumericRollResult
 
 /**
  * NumericDie is an implementation of the Die interface. Each numeric die has a [lowerBound]
@@ -11,7 +11,7 @@ import dev.chauvin.dicetray.roll.IntegerRollResult
 class IntegerDie (
     val lowerBound: Int,
     val upperBound: Int,
-    val modifiers: List<IntegerRollModifier> = emptyList()
+    val modifiers: List<NumericRollModifier<Int>> = emptyList()
 ) : Die<Int> {
 
     init {
@@ -28,9 +28,9 @@ class IntegerDie (
      *
      * @return NumericRollResult
      */
-    override fun roll(): IntegerRollResult {
+    override fun roll(): NumericRollResult<Int> {
         val roll = (lowerBound..upperBound).random()
-        return IntegerRollResult(roll + modifiers.sumOf { it.value }, modifiers, roll)
+        return NumericRollResult(roll + modifiers.sumOf { it.value }, modifiers, roll)
     }
 
     /**
@@ -39,7 +39,7 @@ class IntegerDie (
      * @return List<NumericRollResult>
      * @throws IllegalArgumentException
      */
-    override fun rollMultiple(numberOfRolls: Int): List<IntegerRollResult> {
+    override fun rollMultiple(numberOfRolls: Int): List<NumericRollResult<Int>> {
         if (numberOfRolls >= 2) {
             return (1..numberOfRolls).map {
                 roll()
@@ -55,13 +55,13 @@ class IntegerDie (
      * Provide shortcuts for most common die types.
      */
     companion object {
-        fun d4(modifiers: List<IntegerRollModifier> = emptyList()) = IntegerDie(1, 4, modifiers)
-        fun d6(modifiers: List<IntegerRollModifier> = emptyList()) = IntegerDie(1, 6, modifiers)
-        fun d8(modifiers: List<IntegerRollModifier> = emptyList()) = IntegerDie(1, 8, modifiers)
-        fun d10(modifiers: List<IntegerRollModifier> = emptyList()) = IntegerDie(1, 10, modifiers)
-        fun d12(modifiers: List<IntegerRollModifier> = emptyList()) = IntegerDie(1, 12, modifiers)
-        fun d20(modifiers: List<IntegerRollModifier> = emptyList()) = IntegerDie(1, 20, modifiers)
-        fun d100(modifiers: List<IntegerRollModifier> = emptyList()) = IntegerDie(1, 100, modifiers)
+        fun d4(modifiers: List<NumericRollModifier<Int>> = emptyList()) = IntegerDie(1, 4, modifiers)
+        fun d6(modifiers: List<NumericRollModifier<Int>> = emptyList()) = IntegerDie(1, 6, modifiers)
+        fun d8(modifiers: List<NumericRollModifier<Int>> = emptyList()) = IntegerDie(1, 8, modifiers)
+        fun d10(modifiers: List<NumericRollModifier<Int>> = emptyList()) = IntegerDie(1, 10, modifiers)
+        fun d12(modifiers: List<NumericRollModifier<Int>> = emptyList()) = IntegerDie(1, 12, modifiers)
+        fun d20(modifiers: List<NumericRollModifier<Int>> = emptyList()) = IntegerDie(1, 20, modifiers)
+        fun d100(modifiers: List<NumericRollModifier<Int>> = emptyList()) = IntegerDie(1, 100, modifiers)
     }
 
 
