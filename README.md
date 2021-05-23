@@ -87,7 +87,7 @@ By default, instances of the Die class do not have any modifiers. To create a di
 ``` kotlin
 val die = Die(1, 20, listOf(3)) // creates a 20-sided die with a bonus +3 to every roll.
 val anotherDie = Die(1, 20, listOf(-2) //creates a 20-sided die with a minus 2 to every roll.
-val dieAnotherDay = Die(1, 20, listOf(3, -5)) //create a 20-sided die with a minute 2 to every roll (+3, -5).
+val dieAnotherDay = Die(1, 20, listOf(3, -5)) //create a 20-sided die with a minus 2 to every roll (+3, -5).
 ```
 
 Of course, modifiers can also be used with the companion object shortcuts:
