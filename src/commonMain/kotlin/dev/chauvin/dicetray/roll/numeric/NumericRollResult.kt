@@ -7,8 +7,8 @@ import dev.chauvin.dicetray.roll.RollResult
  * after all [modifiers] are applied. The initial [rawValue] of the roll before any modifiers is
  * also available.
  */
-data class NumericRollResult <T: Number>(
-    override val value: T,
-    val modifiers: List<NumericRollModifier<T>>,
-    val rawValue: T
-): RollResult<T>
+data class NumericRollResult (
+    override val value: Int,
+    val modifiers: List<NumericRollModifier>,
+    val rawValue: Int
+): RollResult<Int>

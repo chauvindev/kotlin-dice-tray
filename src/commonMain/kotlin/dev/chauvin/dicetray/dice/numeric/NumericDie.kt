@@ -5,27 +5,53 @@ import dev.chauvin.dicetray.roll.numeric.NumericRollModifier
 import dev.chauvin.dicetray.roll.numeric.NumericRollResult
 
 /**
- * NumericDie is an abstract implementation of the Die interface. Each numeric die has a [lowerBound]
- * (i.e., the lowest number that can be rolled), an [upperBound] (i.e., the highest
- * number that can be rolled), and a list of applicable [modifiers].
+ * The NumericDie class is a concrete implementation of the [Die] interface class used
+ * to create and roll dice that have all-integer [faces].
  */
-abstract class NumericDie <T: Number>: Die<T> {
+class NumericDie(
+    override val faces: List<Int>,
+    val modifiers: List<NumericRollModifier> = emptyList()
+) : Die<Int> {
 
-    abstract val lowerBound: T
-    abstract val upperBound: T
-    abstract val modifiers: List<NumericRollModifier<T>>
+    override fun roll(): NumericRollResult {
+        val roll = this.faces.random()
+        return NumericRollResult(roll + modifiers.sumOf { it.value }, modifiers, roll)
+    }
+
+    override fun rollMultiple(numberOfRolls: Int): List<NumericRollResult> {
+        if (numberOfRolls >= 2) {
+            return (1..numberOfRolls).map {
+                roll()
+            }
+        }
+
+        else {
+            throw (IllegalArgumentException("Must request at least two rolls."))
+        }
+    }
 
     /**
-     * Roll the die and return the result.
-     *
-     * @return NumericRollResult
+     * Provide shortcuts for most common integer dice.
      */
-    abstract override fun roll(): NumericRollResult<T>
-    /**
-     * Roll the die a number of times corresponding to [numberOfRolls] and return the results.
-     *
-     * @return List<NumericRollResult>
-     * @throws IllegalArgumentException
-     */
-    abstract override fun rollMultiple(numberOfRolls: Int): List<NumericRollResult<T>>
+    companion object {
+        fun d4(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie((1..4).toList(), modifiers)
+        fun d6(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie((1..6).toList(), modifiers)
+        fun d8(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie((1..8).toList(), modifiers)
+        fun d10(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie((1..10).toList(), modifiers)
+        fun d12(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie((1..12).toList(), modifiers)
+        fun d20(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie((1..20).toList(), modifiers)
+        fun d100(modifiers: List<NumericRollModifier> = emptyList()) = NumericDie((1..100).toList(), modifiers)
+
+        fun withBounds(lowerBound: Int, upperBound: Int, modifiers: List<NumericRollModifier> = emptyList()): NumericDie {
+            if (lowerBound > upperBound) {
+                throw (IllegalArgumentException(
+                    "The value of lowerBound must be smaller than the value of upperBound." +
+                            " lowerBound: $lowerBound, upperBound: $upperBound"
+                ))
+            }
+
+            val faces = (lowerBound..upperBound).toList()
+            return NumericDie(faces, modifiers)
+        }
+    }
 }
