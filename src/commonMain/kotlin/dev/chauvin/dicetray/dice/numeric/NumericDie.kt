@@ -8,7 +8,7 @@ import dev.chauvin.dicetray.roll.numeric.NumericRollResult
  * The NumericDie class is a concrete implementation of the [Die] interface class used
  * to create and roll dice that have all-integer [faces].
  */
-class NumericDie(
+open class NumericDie(
     override val faces: List<Int>,
     val modifiers: List<NumericRollModifier> = emptyList()
 ) : Die<Int> {
