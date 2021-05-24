@@ -13,11 +13,22 @@ open class NumericDie(
     val modifiers: List<NumericRollModifier> = emptyList()
 ) : Die<Int> {
 
+    /**
+     * Roll the die, apply any modifiers, and return the result.
+     *
+     * @return NumericRollResult
+     */
     override fun roll(): NumericRollResult {
         val roll = this.faces.random()
         return NumericRollResult(roll + modifiers.sumOf { it.value }, modifiers, roll)
     }
 
+    /**
+     * Roll the die a number of times corresponding to [numberOfRolls] and return the results.
+     *
+     * @return List<NumericRollResult>
+     * @throws IllegalArgumentException
+     */
     override fun rollMultiple(numberOfRolls: Int): List<NumericRollResult> {
         if (numberOfRolls >= 2) {
             return (1..numberOfRolls).map {
