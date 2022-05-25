@@ -15,7 +15,7 @@ interface Die <T: Any> {
      *
      * @return RollResult
      */
-    fun roll (): RollResult<T>
+    fun roll(numberOfRolls: Int = 1): RollResult<T>
 
     /**
      * Roll the die a number of times corresponding to [numberOfRolls] and return the results.
@@ -23,5 +23,10 @@ interface Die <T: Any> {
      * @return List<RollResult>
      * @throws IllegalArgumentException
      */
+    @Deprecated(
+        message = "This function is deprecated and may be removed in future version.",
+        replaceWith = ReplaceWith("roll()"),
+        level = DeprecationLevel.WARNING
+    )
     fun rollMultiple(numberOfRolls: Int): List<RollResult<T>>
 }
