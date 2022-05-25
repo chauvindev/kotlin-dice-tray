@@ -1,7 +1,8 @@
 import java.util.*
 
 plugins {
-    kotlin("multiplatform") version "1.5.0"
+    kotlin("multiplatform") version "1.6.21"
+    id("io.kotest.multiplatform") version "5.3.0"
     id("org.jetbrains.dokka") version "1.4.32"
     id("maven-publish")
     id("signing")
@@ -9,7 +10,7 @@ plugins {
 }
 
 group = "dev.chauvin"
-version = "1.0.3"
+version = "2.0.0"
 
 repositories {
     mavenCentral()
@@ -108,12 +109,9 @@ kotlin {
             useJUnit()
         }
     }
-    js(LEGACY) {
-        browser {
-            commonWebpackConfig {
-                cssSupport.enabled = true
-            }
-        }
+    js(IR) {
+        browser()
+        nodejs()
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -126,23 +124,29 @@ kotlin {
 
     
     sourceSets {
+        val kotestVersion = "5.3.0"
+
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.2.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1")
             }
         }
         val commonTest by getting {
             dependencies {
-                implementation(kotlin("test-common"))
-                implementation(kotlin("test-annotations-common"))
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
+                implementation("io.kotest:kotest-framework-engine:$kotestVersion")
+                implementation("io.kotest:kotest-assertions-core:$kotestVersion")
+                implementation("io.kotest:kotest-property:$kotestVersion")
             }
         }
         val jvmMain by getting
         val jvmTest by getting {
+            tasks.withType<Test>().configureEach {
+                useJUnitPlatform()
+            }
+
             dependencies {
-                implementation(kotlin("test-junit"))
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.0")
+                implementation("io.kotest:kotest-runner-junit5:$kotestVersion")
             }
         }
         val jsMain by getting
