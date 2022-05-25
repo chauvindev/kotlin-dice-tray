@@ -8,7 +8,7 @@ import dev.chauvin.dicetray.roll.RollResult
  */
 public interface Die <T: Any> {
 
-    public val faces: List<T>
+    public val faces: List<Face<T>>
 
     /**
      * Roll the die and return the result.

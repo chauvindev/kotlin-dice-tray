@@ -1,6 +1,7 @@
 package dev.chauvin.dicetray.dice.numeric
 
 import dev.chauvin.dicetray.dice.Die
+import dev.chauvin.dicetray.dice.Face
 import dev.chauvin.dicetray.roll.numeric.NumericRollModifier
 import dev.chauvin.dicetray.roll.numeric.NumericRollResult
 
@@ -9,9 +10,11 @@ import dev.chauvin.dicetray.roll.numeric.NumericRollResult
  * to create and roll dice that have all-integer [faces].
  */
 public open class NumericDie(
-    override val faces: List<Int>,
+    faces: List<Int>,
     public val modifiers: List<NumericRollModifier> = emptyList()
 ) : Die<Int> {
+
+    override val faces: List<Face<Int>> by lazy { faces.map { Face(it) } }
 
     /**
      * Roll the die, apply any modifiers, and return the result.
@@ -19,7 +22,7 @@ public open class NumericDie(
      * @return NumericRollResult
      */
     override fun roll(numberOfRolls: Int): NumericRollResult {
-        val roll = this.faces.random()
+        val roll = this.faces.random().value
         return NumericRollResult(roll + modifiers.sumOf { it.value }, modifiers, roll)
     }
 
