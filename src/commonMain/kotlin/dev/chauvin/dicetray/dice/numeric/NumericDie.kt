@@ -18,7 +18,7 @@ open class NumericDie(
      *
      * @return NumericRollResult
      */
-    override fun roll(): NumericRollResult {
+    override fun roll(numberOfRolls: Int): NumericRollResult {
         val roll = this.faces.random()
         return NumericRollResult(roll + modifiers.sumOf { it.value }, modifiers, roll)
     }
@@ -29,6 +29,11 @@ open class NumericDie(
      * @return List<NumericRollResult>
      * @throws IllegalArgumentException
      */
+    @Deprecated(
+        message = "This function is deprecated and may be removed in future version.",
+        replaceWith = ReplaceWith("roll()"),
+        level = DeprecationLevel.WARNING
+    )
     override fun rollMultiple(numberOfRolls: Int): List<NumericRollResult> {
         if (numberOfRolls >= 2) {
             return (1..numberOfRolls).map {

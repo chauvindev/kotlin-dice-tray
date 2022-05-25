@@ -14,7 +14,7 @@ open class NonNumericDie(override val faces: List<String>): Die<String> {
      *
      * @return NonNumericRollResult
      */
-    override fun roll(): RollResult<String> {
+    override fun roll(numberOfRolls: Int): RollResult<String> {
         val roll = this.faces.random()
         return NonNumericRollResult(roll)
     }
@@ -25,6 +25,11 @@ open class NonNumericDie(override val faces: List<String>): Die<String> {
      * @return List<NonNumericRollResult>
      * @throws IllegalArgumentException
      */
+    @Deprecated(
+        message = "This function is deprecated and may be removed in future version.",
+        replaceWith = ReplaceWith("roll()"),
+        level = DeprecationLevel.WARNING
+    )
     override fun rollMultiple(numberOfRolls: Int): List<RollResult<String>> {
         if (numberOfRolls >= 2) {
             return (1..numberOfRolls).map {
