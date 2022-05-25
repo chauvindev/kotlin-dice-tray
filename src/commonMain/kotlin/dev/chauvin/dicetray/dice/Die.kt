@@ -6,14 +6,14 @@ import dev.chauvin.dicetray.roll.RollResult
  * Die defines the basic properties and functionality needed to create a rollable die with
  * a number of [faces].
  */
-interface Die <T: Any> {
+public interface Die <T: Any> {
 
-    val faces: List<T>
+    public val faces: List<T>
 
     /**
      * Roll the die and return the result.
      */
-    fun roll(numberOfRolls: Int = 1): RollResult<T>
+    public fun roll(numberOfRolls: Int = 1): RollResult<T>
 
     /**
      * Roll the die a number of times corresponding to [numberOfRolls] and return the results
@@ -23,5 +23,5 @@ interface Die <T: Any> {
         replaceWith = ReplaceWith("roll()"),
         level = DeprecationLevel.WARNING
     )
-    fun rollMultiple(numberOfRolls: Int): List<RollResult<T>>
+    public fun rollMultiple(numberOfRolls: Int): List<RollResult<T>>
 }

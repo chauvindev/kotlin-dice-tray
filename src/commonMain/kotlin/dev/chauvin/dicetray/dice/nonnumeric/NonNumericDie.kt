@@ -8,7 +8,7 @@ import dev.chauvin.dicetray.roll.nonnumeric.NonNumericRollResult
  * The NonNumericDie class is a concrete implementation of the [Die] interface class used
  * to create and roll dice that have non-integer [faces] (represented as strings).
  */
-open class NonNumericDie(override val faces: List<String>): Die<String> {
+public open class NonNumericDie(override val faces: List<String>): Die<String> {
     /**
      * Roll the die and return the result.
      *
