@@ -12,16 +12,11 @@ interface Die <T: Any> {
 
     /**
      * Roll the die and return the result.
-     *
-     * @return RollResult
      */
     fun roll(numberOfRolls: Int = 1): RollResult<T>
 
     /**
-     * Roll the die a number of times corresponding to [numberOfRolls] and return the results.
-     *
-     * @return List<RollResult>
-     * @throws IllegalArgumentException
+     * Roll the die a number of times corresponding to [numberOfRolls] and return the results
      */
     @Deprecated(
         message = "This function is deprecated and may be removed in future version.",
