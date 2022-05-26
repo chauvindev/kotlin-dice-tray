@@ -1,7 +1,7 @@
-package dev.chauvin.dicetray.dice
+package dev.chauvin.dicetray.core.dice
 
-import dev.chauvin.dicetray.roll.RollModifier
-import dev.chauvin.dicetray.roll.RollResult
+import dev.chauvin.dicetray.core.roll.RollModifier
+import dev.chauvin.dicetray.core.roll.RollResult
 
 /**
  * Die defines the basic properties and functionality needed to create a die with an arbitrary number of [faces].

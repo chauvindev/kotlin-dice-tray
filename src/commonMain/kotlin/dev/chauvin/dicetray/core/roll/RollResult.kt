@@ -1,4 +1,4 @@
-package dev.chauvin.dicetray.roll
+package dev.chauvin.dicetray.core.roll
 
 /**
  * Represents the result of a die roll.

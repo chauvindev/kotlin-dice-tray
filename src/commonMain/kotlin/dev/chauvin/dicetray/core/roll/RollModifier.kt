@@ -1,4 +1,4 @@
-package dev.chauvin.dicetray.roll
+package dev.chauvin.dicetray.core.roll
 
 /**
  * A RollModifier is a combination of an [operation] that is to be applied to a die roll,
