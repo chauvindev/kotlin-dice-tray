@@ -13,5 +13,30 @@ public interface Die <T: Any> {
     /**
      * Roll the die a number of times equal to [numberOfRolls]. For each die rolled, apply [rollModifiers].
      */
-    public fun roll(numberOfRolls: Int = 1, rollModifiers: List<RollModifier<T>> = emptyList()): List<RollResult<T>>
+    public fun roll(numberOfRolls: Int = 1, rollModifiers: List<RollModifier<T>> = emptyList()): List<RollResult<T>> {
+        if (numberOfRolls <= 0) return emptyList()
+
+        return (1..numberOfRolls).map {
+            val rawValue = this.faces.random().value
+            var modifiedValue = rawValue
+            rollModifiers.forEach {modifier ->
+                modifiedValue = modifier.operation.invoke(modifiedValue)
+            }
+
+            RollResult<T>(
+                value = modifiedValue,
+                modifiers = rollModifiers,
+                rawValue = rawValue
+            )
+        }
+    }
+}
+
+internal class BasicDie<T: Any>(override val faces: List<Face<T>>) : Die<T>
+
+/**
+ * Returns a Die with the provided [faces].
+ */
+public fun <T: Any> createDie(faces: List<Face<T>>): Die<T> {
+    return BasicDie(faces)
 }
