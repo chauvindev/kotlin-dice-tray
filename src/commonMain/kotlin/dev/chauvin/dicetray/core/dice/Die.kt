@@ -30,6 +30,16 @@ public interface Die <T: Any> {
             )
         }
     }
+
+    public companion object {
+        public fun d4(): Die<Int> = BasicDie(faces = (1..4).map { Face(it) })
+        public fun d6(): Die<Int> = BasicDie(faces = (1..6).map { Face(it) })
+        public fun d8(): Die<Int> = BasicDie(faces = (1..8).map { Face(it) })
+        public fun d10(): Die<Int> = BasicDie(faces = (1..10).map { Face(it) })
+        public fun d12(): Die<Int> = BasicDie(faces = (1..12).map { Face(it) })
+        public fun d20(): Die<Int> = BasicDie(faces = (1..20).map { Face(it) })
+        public fun d100(): Die<Int> = BasicDie(faces = (1..100).map { Face(it) })
+    }
 }
 
 internal class BasicDie<T: Any>(override val faces: List<Face<T>>) : Die<T>
