@@ -6,11 +6,11 @@ to be simple to use, yet flexible. For this reason, Kotlin Dice Tray uses generi
 basically anything, and apply modifications to the roll on the go.
 
 > **WARNING**: Version 2.0.0 is a complete rewrite of the library, and is incompatible
-> with previous version. I sincerely doubt anyone was using the previous versions, but in the
+> with previous versions. I sincerely doubt anyone was using the previous versions, but in the
 > event that someone did, they should know that updating to 2.0.0 will break existing code.
 > 
-> A migration guide is included further down to facilitate the transition, if needed. The decision to rewrite was made
-> in part to increase the flexibility of the library, and also to facilitate backwards compatibility going forward.
+> The decision to rewrite was made in part to increase the flexibility of the library, and also to facilitate 
+> backwards compatibility going forward.
 
 ## Installation
 Kotlin Dice Tray is on MavenCentral and can be added to your project as follows:
