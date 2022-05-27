@@ -318,7 +318,7 @@ val die = Die.20()
 val result = die.roll {
     modifiers {
         modifier("Give an unfair advantage") { it + 1 } // This will add 1 to the result of the roll.
-        modifier("Give an unfaire disadvantage") { it - 3 } This will remove 3 from the results of the roll after having applied the first modifier.
+        modifier("Give an unfaire disadvantage") { it - 3 } // This will remove 3 from the results of the roll after having applied the first modifier.
     }
 }
 ```
