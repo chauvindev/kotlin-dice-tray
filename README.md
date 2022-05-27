@@ -1,8 +1,16 @@
 # Kotlin Dice Tray
 <img src="https://img.shields.io/maven-central/v/dev.chauvin/kotlin-dice-tray">
 
-Kotlin Dice Tray is a small Multiplatform library which allows you to create and roll dice. It is meant to be simple to use yet flexible. For this reason,
-it provides shortcuts to many standard dice (e.g., d20, d6), while also giving the user the ability to create their own dice. It currenty provides support for numeric dice (with integer faces) and non-numeric dice (with string faces).
+Kotlin Dice Tray is a small Multiplatform library which allows you to create and roll dice. It is meant 
+to be simple to use, yet flexible. For this reason, Kotlin Dice Tray uses generic types, allowing the user to roll
+basically anything, and apply modifications to the roll on the go.
+
+> **WARNING**: Version 2.0.0 is a complete rewrite of the library, and is incompatible
+> with previous version. I sincerely doubt anyone was using the previous versions, but in the
+> event that someone did, they should know that updating to 2.0.0 will break existing code.
+> 
+> A migration guide is included further down to facilitate the transition, if needed. The decision to rewrite was made
+> in part to increase the flexibility of the library, and also to facilitate backwards compatibility going forward.
 
 ## Installation
 Kotlin Dice Tray is on MavenCentral and can be added to your project as follows:
@@ -12,14 +20,14 @@ Kotlin Dice Tray is on MavenCentral and can be added to your project as follows:
 <dependency>
     <groupId>dev.chauvin</groupId>
     <artifactId>kotlin-dice-tray</artifactId>
-    <version>1.0.3</version>
+    <version>2.0.0</version>
 </dependency>
 ```
 
 ### Gradle
 ```
 dependencies {
-    implementation 'dev.chauvin:kotlin-dice-tray:1.0.3'
+    implementation 'dev.chauvin:kotlin-dice-tray:2.0.0'
 }
 ```
 Make sure you have <code>mavenCentral()</code> in the list of repositories
@@ -32,7 +40,7 @@ repository {
 ### Gradle Kotlin DSL
 ```
 dependencies {
-    implementation("dev.chauvin:kotlin-dice-tray:1.0.3")
+    implementation("dev.chauvin:kotlin-dice-tray:2.0.0")
 }
 ```
 
@@ -47,7 +55,7 @@ repository {
 ```
 commonMain {
     dependencies {
-        implementation("dev.chauvin:kotlin-dice-tray:1.0.3")
+        implementation("dev.chauvin:kotlin-dice-tray:2.0.0")
     }
 }
 ```
@@ -59,110 +67,268 @@ repository {
 }
 ```
 ## Using Kotlin Dice Tray
-Kotlin Dice Tray currently offers two types of die: NumericDie and NonNumericDie. The former is akin to traditional dice with integer faces, while the latter allows for some more unconventional die to be created (e.g., a die consisting of faces such as: "success", "failure", "great success", "catastrophic failure"). Below are examples of both of how to use both of these die types.
+The core unit of the Kotlin Dice Tray library is the Die interface. 
+ADD INFORMATION ABOUT GENERICS. ALSO TALK ABOUT FACES.
 
-### NumericDie
-A NumericDie can be created by passing a list of all the possible <code>faces</code>. **Please note that you are under no obligation to have each face represented only once.**
+### Creating a Die
+Kotlin Dice Tray offers two ways to create a Die object.
+
+#### Method 1: The createDie(faces: List<Face>) function
+A Die object can be created by passing a list of all the possible <code>faces</code>. The number of faces is 
+arbitrary, and there is no obligation for each Face to be represented only once.
 ``` kotlin
-val balancedFaces = listOf(1, 2, 3, 4, 5, 6)
-val balancedDie = NumericDie(faces) // This creates a 6-sided die
+// This creates a standard six-sided die.
+val die = createDie(
+    faces = listOf(
+        Face(1),
+        Face(2),
+        Face(3),
+        Face(4),
+        Face(5),
+        Face(6)
+    )
+)
 
-val unbalancedFaces = listOf(1, 1, 1, 1, 1, 6)
-val unbalancedDie = NumericDie(unbalancedFaces)
+// This creates a six-sided die with 50% 
+//of the faces holding a value of 1. 
+val duplicatedFacesDie = createDie(
+    faces = listOf(
+        Face(1),
+        Face(1),
+        Face(1),
+        Face(2),
+        Face(3),
+        Face(4)
+    )
+)
 ```
-For convenience, the <code>NumericDie.withBounds()</code> function is available to quickly create a balanced die with faces ranging from a given <code>lowerBound</code> to
-<code>upperBound</code>:
+This is certainly readable, but could look a bit nicer with some syntactic sugar...
+
+#### Method 2: The Kotlin Dice Tray DSL
+The Die objects presented in the previous section can alternatively be created using
+the Kotlin Dice Tray DSL:
 ``` kotlin
-val die = NumericDie.withBounds(lowerBound = 1, upperBound = 6) //This is equivalent to NumericDie(listOf(1, 2, 3, 4, 5, 6))
-```
+// This creates a standard six-sided die.
+val die = die<Int> { 
+    faces {
+        face { 1 }
+        face { 2 }
+        face { 3 }
+        face { 4 }
+        face { 5 }
+        face { 6 }
+    }
+}
 
-For the most common types of numeric die (e.g., d6, d10, d20), the NumericDie class also provides shortcuts:
+// This creates a six-sided die with 50% 
+//of the faces holding a value of 1. 
+val duplicatedFacesDie = die<Int> { 
+    faces {
+        face { 1 }
+        face { 1 }
+        face { 1 }
+        face { 4 }
+        face { 5 }
+        face { 6 }
+    }
+}
+```
+For convenience, the Die interface provides methods to rapidly create standard integer dice (e.g., d20, d6):
 ``` kotlin
-val d4 = NumericDie.d4()
-val d6 = NumericDie.d6()
-val d8 = NumericDie.d8()
-val d10 = NumericDie.d10()
-val d12 = NumericDie.d12()
-val d20 = NumericDie.d20()
-val d100 = NumericDie.d100()
+val d4 = Die.d4() // This creates a four-sided die with face values ranging from 1 to 4
+val d6 = Die.d6() // This creates a six-sided die with face values ranging from 1 to 6
+val d8 = Die.d8() // This creates an eight-sided die with face values ranging from 1 to 8
+val d10 = Die.d10() // This creates a ten-sided die with face values ranging from 1 to 10
+val d12 = Die.d12() // This creates a twelve-sided die with face values ranging from 1 to 12
+val d20 = Die.d20() // This creates a twenty-sided die with face values ranging from 1 to 20
+val d100 = Die.d100() // This creates a one-hundred-sided die with face values ranging from 1 to 100
 ```
 
-A NumericDie can also have one or more **modifiers**. There are instances of the NumericRollModifier class, which consists of an integer value to be applied
-to each roll, and an optional reason for the modifier.By default, instances of the NumericDie class do not have any modifiers. To create a die with modifiers:
+### Beyond integer dice
+Because both Die and Face have generic type parameters, it is entirely possible (and encouraged!) to build dice with
+non-numeric face values. The type parameter on both Die and Face inherits from Any, allowing for great flexibility.
+The only constraint is that the generic type parameter of Die and Face is the same. In practice, this means that all
+the Face objects of a given Die object must be of the same generic type. The reason for this constraint will become
+apparent shortly, when we discuss the ability to pass modifiers to dice rolls.
+
+For now, let's show that it is entirely possible to create a Die object with String values:
+``` kotlin
+// Using the createDie() function
+val greetingDie = createDie(
+    faces = listOf(
+        Face("Hello!"),
+        Face("Good morning!"),
+        Face("How do you do?"),
+        Face("What's up?"),
+        Face("Hi!")
+    )
+)
+
+// Using the DSL
+val greetingDie = die<String> {
+    faces {
+        face { "Hello!" }
+        face { "Good morning!" }
+        face { "How do you do?" }
+        face { "What's up?" }
+        face { "Hi!" }
+    }
+}
+```
+
+It is also possible to create a Die object with faces holding custom objects:
+``` kotlin
+data class MyCustomClass(
+    val myCustomIntProperty: Int
+    val myCustomBooleanProperty: Boolean 
+)
+
+
+// Using the createDie() function
+val customClassDie = createDie(
+    faces = listOf(
+        Face(
+            value = MyCustomClass(
+                myCustomIntProperty = 1,
+                myCustomBooleanProperty = true
+            )
+        ),
+        Face(
+            value = MyCustomClass(
+                myCustomIntProperty = 2,
+                myCustomBooleanProperty = false
+            )
+        ),
+        Face(
+            value = MyCustomClass(
+                myCustomIntProperty = 3,
+                myCustomBooleanProperty = true
+            )
+        ),
+        Face(
+            value = MyCustomClass(
+                myCustomIntProperty = 4,
+                myCustomBooleanProperty = false
+            )
+        )
+    )
+)
+
+// Using the DSL
+val customClassDie = die<MyCustomClass> {
+    faces {
+        face {
+            MyCustomClass(
+                myCustomIntProperty = 1,
+                myCustomBooleanProperty = true
+            )
+        }
+        
+        face {
+            MyCustomClass(
+                myCustomIntProperty = 2,
+                myCustomBooleanProperty = false
+            )
+        }
+        
+        face {
+            MyCustomClass(
+                myCustomIntProperty = 3,
+                myCustomBooleanProperty = true
+            )
+        }
+        
+        face {
+            MyCustomClass(
+                myCustomIntProperty = 4,
+                myCustomBooleanProperty = false
+            )
+        }
+    }
+}
+```
+
+It is even possible to pass lambdas as Face values, which can then be called at a later time
+(e.g., after the die has been rolled):
 
 ``` kotlin
-val faces = listOf(1, 2, 3, 4, 5, 6)
-val plusThreeModifier = NumericRollModifier(3, "For a good idea")
-val minusTwoModifier = NumericRollModifier(-2, "Because they did not bring snacks to game night")
-val plusSixModifier = NumericRollModifier(6, "For exceptional gusto")
+// Using the createDie() function.
+val lambdaDie = createDie<(Int) -> Int>( // Type parameter needed here.
+    faces = listOf(
+        Face(value = { it + 1 }),
+        Face(value = { it + 2 }),
+        Face(value = { it + 3 }),
+        Face(value = { it + 4 })
+    )
+) 
 
-val die = NumericDie(faces, listOf(plusThreeModifier)) // Creates a 6-sided die with a bonus +3 to every roll.
-val anotherDie = NumericDie(faces, listOf(minusTwoModifier)) // Creates a 6-sided die with a minus 2 to every roll)
-val dieAnotherDay = NumericDie(faces), listOf(plusThreeModifier, minusTwoModifier, dieAnotherDay) // Creates a 6-sided die with a +7 to every roll (+3, -2, +6)
+// Using the DSL
+val lambdaDie = die<(Int) -> Int>( // Type parameter needed here.
+    faces {
+        face { { it + 1 } } 
+        face { { it + 2 } } 
+        face { { it + 3 } } 
+        face { { it + 4 } } 
+    }
+) 
 ```
-
-Of course, modifiers can also be used with the NumericDie.withBounds() function:
-```kotlin
-val plusThreeModifier = NumericRollModifier(3, "For a good idea")
-val die = NumericDie.withBounds(1, 6, listOf(plusThreeModifier))
-```
-
-And the same is true for the shortcuts to common dice:
-```kotlin
-val plusThreeModifier = NumericRollModifier(3, "For a good idea")
-val die = NumericDie.d20(listOf(plusThreeModifier))
-```
-
-### NonNumericDie
-A NonNumericDie can be created by passing a list of all the possible <code>faces</code>. **Please note that you are under no obligation to have each face represented only once.**
-
-``` kotlin
-val balancedFaces = listOf("success", "failure", "great success", "horrible failure", "neutral")
-val balancedDie = NonNumericDie(faces) // This creates a 6-sided die
-
-val unbalancedFaces = listOf(
-    "success",
-    "catastrophic failure",
-    "catastrophic failure",
-    "catastrophic failure",
-    "catastrophic failure",
-    "catastrophic failure"
-) // Try to get out of this situation!
-val unbalancedDie = NonNumericDie(unbalancedFaces)
-```
-
-NonNumericDie do not currently support any modifiers.
 
 ### Rolling a die
-Rolling a die is quite simple: call the <code>roll()</code> function. This is the same for NumericDie and NonNumericDie
+Once a Die object is created, it can of course be rolled:
 ``` kotlin
-val numericDie = NumericDie.d20()
-val result = numericDie.roll()
+val die = Die.d6()
+
+// Roll the die once
+val result = die.roll()
+
+// Roll the multiple times
+die.roll(numberOfRolls = 2)
+die.roll(numberOfRolls = 10)
+die.roll(numberOfRolls = 25)
+die.roll(numberOfRolls = 100)
+die.roll(numberOfRolls = 500)
+
 ```
-This returns a <code>NumericRollResult</code> object which contains <code>value</code> of
-the roll after all <code>modifiers</code> have been applied. The original,
-<code>rawValue</code> of the roll without modifiers is also available.
+It is also possible to pass a list of <code>rollModifiers</code>.This list contains an arbitrary number of 
+RollModifier objects, each of which defines an<code>operation</code> lambda to be applied to the result of the roll. 
+Optionally, a <code>reason</code> for the modifier can be provided. Importantly, the type parameter of the modifier 
+must be the same as the type parameter of the Die (and Face objects):
+
+> **NOTE**: When the roll is called, the modifiers are applied **in the order in which they were added to the list of
+> modifiers.** This means that the first modifier directly impacts the roll value, but the second (and subsequent) 
+> modifiers operate of the result of applying the previous modifier(s) to the raw roll result.
 
 ``` kotlin
-val faces = listOf("success", "failure", "great success", "horrible failure", "neutral")
-val nonNumericDie = NonNumericDie(faces)
-val result = nonNumericDie.roll()
-```
-This returns a <code>NonNumericRollResult</code> object which contains <code>value</code> of
-the roll. While this is currently just a wrapper around the value of the roll, NonNumericRollResult is used
-for consistency between NumericDie and NonNumericDie, as well as to not break implementations should modifiers
-be supported for NonNumericDie in the future (at which point NonNumericRollResult would need to contain the list
-of modifiers that were applied).
+val modifier1 = RollModifier<Int>(
+    operation = { it + 1 },
+    reason = "Give an unfair advantage."
+) // This will add 1 to the result of the roll of a Die it is attached to.
 
-If you need multiple rolls, you can use the <code>rollMultiple(numberOfRolls)</code> function:
+val modifier2 = RollModifier<Int>(
+    operation = { it - 3 },
+    reason = "Give an unfair disadvantage."
+) // This will remove 3 from the result of applying modifier1 to the value of the roll.
+
+val die = Die.d20()
+val result = die.roll(rollModifiers = listOf(modifier1, modifier2))
+```
+There is also a DSL version of the roll() function:
 ``` kotlin
-val numericDie = NumericDie.d20()
-val numericResults = numericDie.rollMultiple(5) // Roll the die 5 times and return a list of NumericRollResult objects
-
-val nonNumericDie = NonNumericDie(faces)
-val nonNumericResults = nonNumericDie.rollMultiple(5) // Roll the die 5 times and return a list of NonNumericRollResult objects.
+val die = Die.20()
+val result = die.roll {
+    modifiers {
+        modifier("Give an unfair advantage") { it + 1 } // This will add 1 to the result of the roll.
+        modifier("Give an unfaire disadvantage") { it - 3 } This will remove 3 from the results of the roll after having applied the first modifier.
+    }
+}
 ```
+
+### Getting the result of a roll
+Calling either <code>roll()</code> function (standard or DSL version) returns a list of RollResult objects. Each 
+RollResult has three properties: <code>value</code>, <code>rawValue</code>, and <code>modifiers</code>.
+The <code>value</code> property represents the value of the roll **after** all <code>modifiers</code> have been applied. 
+On the other hand, <code>rawValue</code> is the value of the roll **before** <code>modifiers</code> were applied.
 
 ## What's Next?
-This is a very simple library and is meant to remain so. However, that does not mean there is no room for growth. One of the planned features is
-a way to archive rolls in order to get a replay of every roll in order. Other suggestions are welcome!
+This is a very simple library and is meant to remain so. However, that does not mean there is no room for growth. 
+One of the planned features is to allow the user to define observable dice, using Kotlin Flows. Other suggestions are welcome!
