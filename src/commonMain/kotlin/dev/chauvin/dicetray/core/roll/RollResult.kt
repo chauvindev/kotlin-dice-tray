@@ -7,9 +7,6 @@ package dev.chauvin.dicetray.core.roll
  * For convenience, the RollResult instance also holds the [rawValue] of the die roll,
  * along with a copy of all the [modifiers] that were applied to this [rawValue] to
  * compute [value].
- *
- * The RollResult interface represents the outcome of a roll and must, at minimum,
- * hold the [value] of the roll.
  */
 public data class RollResult<T: Any>(
     public val value: T,
