@@ -6,5 +6,5 @@ package dev.chauvin.dicetray.core.roll
  */
 public data class RollModifier <T: Any>(
     public inline val operation: (T) -> T,
-    public val reason: String?
+    public val reason: String? = null
 )
